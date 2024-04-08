@@ -1,9 +1,10 @@
 /**
  * Project 3 versions 0-4 - 2D Web Game
- * Name:
+ * Name: Isa Coronel
  * 
  * Use this template to get started creating a simple 2D game for the web using P5.js. 
  */
+var gameState = "splash"; 
 
 function setup() {
 
@@ -17,6 +18,20 @@ function draw() {
   //splash(); // call the splash screen function (below)
   //play(); // call the play screen function (below)
   //gameOver(); // call the gameOver screen function (below)
+  switch(gameState){ //look at value of gamestate, look at 3 different cases, calls one at a time
+    case "splash" : // if value is splash, call splash function
+      splash();
+      break; // 
+    case "play" :
+      play();
+      break;
+    case "gameOver" :
+      gameOver();
+      break;
+    default :
+      console.log("no match found!");
+
+  }
 
 }
 
@@ -49,8 +64,17 @@ function gameOver() {
   text("Game Over!", width / 2, height / 2);
 }
 
-function mousePressed() {
+function mousePressed() { //event handler - runs one time when mouse clicked
 
-  console.log("click!");
+  console.log("click!"); // when mouse clicked, recieve output that it is clicked
+  if(gameState == "splash"){ // checks for true or false
+    gameState = "play"
+  } else if(gameState == "play"){ // if first statement not true, moves onto next argument
+    gameState = "gameOver"
+  } else if(gameState == "gameOver"){
+    gameState = "splash";
+  }
+  console.log(gameState)
+// else if arguments are exclusive of each other, only one applies
 
 }
