@@ -4,11 +4,14 @@
  * 
  * Use this template to get started creating a simple 2D game for the web using P5.js. 
  */
-var gameState = "splash"; 
+var gameState = "splash";
+var player1; 
 
 function setup() {
 
   createCanvas(600, 400);
+  player1 = new Player(width/2, height * 4/5);
+  console.log(player1);
 
 }
 
@@ -51,7 +54,11 @@ function play() {
   fill(0, 0, 200)
   textAlign(CENTER);
   textSize(16);
-  text("This is where the Game happens", width / 2, height / 2);
+  //text("This is where the Game happens", width / 2, height / 2);
+  //player1.x = mouseX //initalizing player horizontal movement to follow mouse
+  player1.display();
+ 
+
 
 }
 
@@ -70,11 +77,51 @@ function mousePressed() { //event handler - runs one time when mouse clicked
   if(gameState == "splash"){ // checks for true or false
     gameState = "play"
   } else if(gameState == "play"){ // if first statement not true, moves onto next argument
-    gameState = "gameOver"
+    //gameState = "gameOver"
   } else if(gameState == "gameOver"){
     gameState = "splash";
   }
   console.log(gameState)
 // else if arguments are exclusive of each other, only one applies
 
+}
+
+function keyPressed(){
+  switch(keyCode){
+    case UP_ARROW :
+      console.log("up")
+      player1.y -= 30 // move up 30px
+      player1.angle = 0; // no rotation
+      if(player1.y < 0) {
+        player1.y = height; // wrap to bottom
+      }
+      break; // stop looking for matches
+    case DOWN_ARROW :
+      console.log("down");
+      player1.y += 30 // move down 30px
+      player1.angle = PI ; // point down (rotate 180 deg.)
+      if(player1.y > height){
+        player1.y = 0; // wrap to top
+      }
+      break;
+    case LEFT_ARROW :
+      console.log("left")
+      player1.x -= 30;
+      player1.angle = PI + HALF_PI;
+      if(player1.x < 0){
+        player1.x = width;
+      }
+      break;
+    case RIGHT_ARROW :
+      console.log("right")
+      player1.x += 30
+      player1.angle = HALF_PI;
+      if(player1.x > width){
+        player1.x = 0;
+      }
+      break;
+    default :
+      console.log("use the arrow keys to move")
+    
+  }
 }
