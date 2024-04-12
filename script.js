@@ -57,6 +57,28 @@ function play() {
   //text("This is where the Game happens", width / 2, height / 2);
   //player1.x = mouseX //initalizing player horizontal movement to follow mouse
   player1.display();
+  player1.move();
+
+    if(keyIsPressed){ //true or false, is a key being pressed
+    switch(keyCode) //try to match case with one of the arguments below
+    {
+      case UP_ARROW:
+        player1.thrust(); // accelerate
+        break;
+      case DOWN_ARROW:
+        player1.brake();
+        break;
+      case LEFT_ARROW:
+        player1.angle -= .02; //turn left
+        break;
+      case RIGHT_ARROW:
+        player1.angle += .02; //turn right
+        break;
+      default:
+        console.log("use the arrow keys to move");
+    }
+
+}
  
 
 
@@ -85,7 +107,7 @@ function mousePressed() { //event handler - runs one time when mouse clicked
 // else if arguments are exclusive of each other, only one applies
 
 }
-
+/*
 function keyPressed(){
   switch(keyCode){
     case UP_ARROW :
@@ -124,4 +146,4 @@ function keyPressed(){
       console.log("use the arrow keys to move")
     
   }
-}
+} */
