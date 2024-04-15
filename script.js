@@ -6,12 +6,14 @@
  */
 var gameState = "splash";
 var player1; 
+var gameTimer; // time the game play
 
 function setup() {
 
   createCanvas(600, 400);
   player1 = new Player(width/2, height * 4/5);
   console.log(player1);
+  gameTimer = new Timer(10000); // 2 second timer
 
 }
 
@@ -50,14 +52,20 @@ function splash() {
 
 function play() {
   // this is what you see when the game is running 
-  background(0, 200, 0);
+  background(0, 200, 0); // green
   fill(0, 0, 200)
   textAlign(CENTER);
   textSize(16);
   //text("This is where the Game happens", width / 2, height / 2);
   //player1.x = mouseX //initalizing player horizontal movement to follow mouse
-  player1.display();
-  player1.move();
+  player1.display(); 
+  player1.move(); // move method
+  if(gameTimer.isFinished()){
+    gameState = "gameOver"; //once timer is finished, go to game over screen
+  }
+  textAlign(LEFT);
+  text("elapsed time: " + gameTimer.elapsedTime, 40, 100);
+  // show elapsed time in top left corner
 
     if(keyIsPressed){ //true or false, is a key being pressed
     switch(keyCode) //try to match case with one of the arguments below
@@ -98,6 +106,7 @@ function mousePressed() { //event handler - runs one time when mouse clicked
   console.log("click!"); // when mouse clicked, recieve output that it is clicked
   if(gameState == "splash"){ // checks for true or false
     gameState = "play"
+    gameTimer.start(); // start the timer
   } else if(gameState == "play"){ // if first statement not true, moves onto next argument
     //gameState = "gameOver"
   } else if(gameState == "gameOver"){
