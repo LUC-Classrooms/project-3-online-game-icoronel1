@@ -10,6 +10,7 @@ var gameTimer; // time the game play
 var testBox; // a box to preview on splash screen
 var dropTimer; // regulate box drops
 var presents = new Array (0); // an empty array called "presents"
+var score = 0; // keep track of points starting from 0
 
 function setup() {
 
@@ -86,15 +87,21 @@ function play() {
       // if it's within 50 pixels, do something!
     } else if(presents[i].y > height){ // if did not collide and present went below canvas
       presents.splice(i, 1); // remove 1 element from 'present' array
+      score --; // lose 1 point for every missed present
     }
     if (d < 50) {
       presents.splice(i, 1); // remove 1 item at index 'i'
+      score ++; // add 1 point
     }
   }
 
   textAlign(LEFT);
   text("elapsed time: " + gameTimer.elapsedTime, 40, 100);
   // show elapsed time in top left corner
+
+  text("Score: " + score, 20, 40);
+
+ 
 
     if(keyIsPressed){ //true or false, is a key being pressed
     switch(keyCode) //try to match case with one of the arguments below
@@ -119,6 +126,7 @@ function play() {
  
 
 
+
 }
 
 function gameOver() {
@@ -128,17 +136,19 @@ function gameOver() {
   textAlign(CENTER);
   textSize(16);
   text("Game Over!", width / 2, height / 2);
+  text("Your final score: " + score, width/2, height * 2/3); //showcased final score
 }
 
 function mousePressed() { //event handler - runs one time when mouse clicked
 
   console.log("click!"); // when mouse clicked, recieve output that it is clicked
   if(gameState == "splash"){ // checks for true or false
-    gameState = "play"
+    gameState = "play";
     gameTimer.start(); // start the timer
     dropTimer.start(); //start the drop timer
     presents = new Array(0); // restart presents
     player1 = new Player(width/2, height * 4/5) // new player one so it restarts position and speed
+    score = 0; // reset score to 0 at start of game
   } else if(gameState == "play"){ // if first statement not true, moves onto next argument
     //gameState = "gameOver"
   } else if(gameState == "gameOver"){
