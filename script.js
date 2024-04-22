@@ -17,8 +17,8 @@ function setup() {
   createCanvas(600, 400);
   player1 = new Player(width/2, height * 4/5);
   console.log(player1);
-  gameTimer = new Timer(10000); // 10 second timer
-  dropTimer = new Timer(500) // set for 1 second
+  gameTimer = new Timer(30000); // 10 second timer
+  dropTimer = new Timer(random(500, 2000)) // drop presents randomly between .5 secs and 2 secs
   testBox = new Box(width/2, height/3);
 
 }
@@ -84,21 +84,17 @@ function play() {
 
     let d = dist(presents[i].x, presents[i].y, player1.x, player1.y);
     if (d < 50) {
-      // if it's within 50 pixels, do something!
+      presents.splice(i, 1); // remove 1 item at index 'i'
+      score ++; // add 1 point
     } else if(presents[i].y > height){ // if did not collide and present went below canvas
       presents.splice(i, 1); // remove 1 element from 'present' array
       score --; // lose 1 point for every missed present
     }
-    if (d < 50) {
-      presents.splice(i, 1); // remove 1 item at index 'i'
-      score ++; // add 1 point
-    }
+    
   }
-
   textAlign(LEFT);
-  text("elapsed time: " + gameTimer.elapsedTime, 40, 100);
-  // show elapsed time in top left corner
-
+  text("Time remaining: " + Math.trunc((gameTimer.time - gameTimer.elapsedTime)/1000), 40, 100); 
+  //count down time remaining in secs
   text("Score: " + score, 20, 40);
 
  
