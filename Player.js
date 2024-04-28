@@ -19,7 +19,7 @@ function Player(tempX, tempY) {
      * The translate() function (above, line 10) takes care of moving it on the canvas.
      * 
     */
-    let r = this.diam / 2; // radius
+    let r = this.diam / 3; // radius
     // 270 degrees (top):
     let x1 = cos(PI + HALF_PI) * r; 
     let y1 = sin(PI + HALF_PI) * r; 
@@ -33,12 +33,33 @@ function Player(tempX, tempY) {
     //triangle(x1, y1, x2, y2, x3, y3);
     //or draw a complex polygon
     beginShape();
+    fill(200)
+    noStroke()
     vertex(x1, y1);
     vertex(x2, y2);
     vertex(x3, y3);
     endShape();
+    fill(200)
+    triangle(x3, y3, x3 - 30, y3 + 25, x3, y3 + 25)
+    triangle(x2, y2, x2 + 30, y2 + 25, x2, y2 + 25)
+    arc(x3 + 14.5, y3 + 42, 45, 105, PI, TWO_PI)
+    beginShape();
+    fill(0)
+    vertex(x3 + 10, y3 + 40)
+    vertex(x3 - 5, y3 + 55)
+    vertex(x2 + 5, y2 + 55)
+    vertex(x2 - 10, y2 + 40)
+    endShape();
+    ellipse(x1, y1 + 30, 15)
+    
+
+
+
+    
+
+
     // uncomment the next two lines to see the circle
-    // noFill();
+    // noFill(); 
     // ellipse(0, 0, this.diam, this.diam);
     ellipse(x1, y1, 5)
 

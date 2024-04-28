@@ -12,6 +12,7 @@ var dropTimer; // regulate box drops
 var presents = new Array (0); // an empty array called "presents"
 var score = 0; // keep track of points starting from 0
 
+
 function setup() {
 
   createCanvas(600, 400);
@@ -20,6 +21,7 @@ function setup() {
   gameTimer = new Timer(30000); // 10 second timer
   dropTimer = new Timer(random(500, 2000)) // drop presents randomly between .5 secs and 2 secs
   testBox = new Box(width/2, height/3);
+
 
 }
 
@@ -41,7 +43,6 @@ function draw() {
       break;
     default :
       console.log("no match found!");
-
   }
 
 }
@@ -61,7 +62,7 @@ function splash() { //animation frame
 
 function play() {
   // this is what you see when the game is running 
-  background(0, 200, 0); // green
+  background(100, 90, 255); // green
   fill(0, 0, 200)
   textAlign(CENTER);
   textSize(16);
@@ -76,7 +77,9 @@ function play() {
     let p = new Box(random(width), -40); //create new box, anywhere across width but 40px above visible canvas
     presents.push(p); // add object 'p' to the 'presents' array
     dropTimer.start(); //restart timer for next drop
+    
   }
+
   for(let i = 0; i < presents.length; i ++){
     presents[i].display();
     presents[i].move();
@@ -92,6 +95,8 @@ function play() {
     }
     
   }
+
+
   textAlign(LEFT);
   text("Time remaining: " + Math.trunc((gameTimer.time - gameTimer.elapsedTime)/1000), 40, 100); 
   //count down time remaining in secs
@@ -119,9 +124,6 @@ function play() {
     }
 
 }
- 
-
-
 
 }
 
